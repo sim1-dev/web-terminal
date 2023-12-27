@@ -1,11 +1,10 @@
 @font-face {
   font-family: Hack NF;
-  src: url(public/fonts/HackNF.woff);
+  src: url(/public/fonts/HackNF.woff);
 }
-
 @font-face {
   font-family: Hack NF;
-  src: url(public/fonts/HackNF-Bold.woff);
+  src: url(/public/fonts/HackNF-Bold.woff);
   font-weight: bold;
 }
 
@@ -17,7 +16,7 @@
 
 body {
   margin: 0;
-  padding: 10px 10px; width: 100%; min-width: 550px;
+  padding: 10px 10px;
   font-family: Hack NF;
   color: var(--text-subtle-light);
   background-color: #010101;
@@ -32,7 +31,7 @@ b {
   text-decoration: none !important;
 }
 
-.neon {
+span, .neon {
   color: var(--text-accent);
   text-shadow:
   0 0 15px rgba(0, 255, 255, 0.6)
@@ -124,8 +123,10 @@ b {
   margin-left: 30px;
 }
 
-.colors {
-  margin-top:20px;
+.colors-container {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .colors > div {

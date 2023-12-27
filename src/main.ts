@@ -18,20 +18,20 @@ execCommand(getCommand("neofetch"))
 
 // create html element for next line result
 export function createLogLine(text: string) {
-  // TODO? leggi un carattere alla volta con timeout (il problema sta nel far processare l'html)
+  // ? TODO leggi un carattere alla volta con timeout (il problema sta nel far processare l'html)
   let $p: HTMLElement = document.createElement("p")
   $p.innerHTML = text;
   $logLine?.append($p);
 }
 
 export function processCommand(event: KeyboardEvent) {
-
   if(!$terminalTextarea)
     return;
 
   let value: string | null = $terminalTextarea.value;
 
-  if(!value || event.code !== "Enter")
+  // ! TODO DEBUG ANDROID (zoom e non funziona l'invio)
+  if(!value || event.key !== "Enter")
     return
 
   let command: Command | undefined = getCommand(value.replace(/(\r\n|\n|\r)/gm, ""))

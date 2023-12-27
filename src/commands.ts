@@ -34,11 +34,10 @@ function createHelpCommand(commands: Command[]): Command {
             for(let i = 0; i < space; i++) {
                 spaces += "\u00A0";
             }
-            console.log(name+spaces+space, "space of "+name)
             return spaces;
         }
 
-        return `<span class="neon">${pair.name}</span>:${getSpace(pair.name, maxNameLength)}${pair.description}`
+        return `<span>${pair.name}</span>${getSpace(pair.name, maxNameLength)}${pair.description}`
     }).join("<br>")
 
     return helpCommand;
@@ -46,7 +45,6 @@ function createHelpCommand(commands: Command[]): Command {
 
 // exports
 let helpCommand: Command = createHelpCommand(commands);
-
 commands.push(helpCommand);
 
 export { commands };
