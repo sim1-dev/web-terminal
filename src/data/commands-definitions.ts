@@ -37,6 +37,13 @@ export let commands: Command[] = [
         callback: printProjects
     },
     {
+        name: "ui",
+        description: "Redireziona sul portfolio con interfaccia utente",
+        visible: true,
+        result: "",
+        callback: redirectToOriginalPortfolio
+    },
+    {
         name: "clear",
         description: "Svuota il terminale",
         visible: true,
@@ -55,6 +62,12 @@ export function clearLogLine() {
     $logLine.innerHTML = ""
 }
 
+
+export function redirectToOriginalPortfolio() {
+    window.open("https://simofolio.vercel.app", "_blank")
+}
+
+
 export function printStartup() {
     let $logLine: HTMLElement | null = document.getElementById('log-line')
     let $startupSkeleton: HTMLElement | null = document.getElementById('startup-skeleton');
@@ -64,7 +77,6 @@ export function printStartup() {
 
     $logLine.innerHTML += $startupSkeleton.innerHTML
 }
-
 export function printNeofetch() {
     let $logLine: HTMLElement | null = document.getElementById('log-line')
     let $neofetchSkeleton: HTMLElement | null = document.getElementById('neofetch-skeleton');
@@ -74,7 +86,6 @@ export function printNeofetch() {
 
     $logLine.innerHTML += $neofetchSkeleton.innerHTML
 }
-
 function printProjects() {
     let $logLine: HTMLElement = document.getElementById('log-line') as HTMLElement
     $logLine.innerHTML += "<span>Progetti a cui ho lavorato negli ultimi anni</span>"
