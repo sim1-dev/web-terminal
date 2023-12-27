@@ -11,12 +11,10 @@ export function storeExecutedCommand(command: Command) {
 
 export function getPreviousExecutedCommand(): Command | undefined {
     let command: Command | undefined = getExecutedCommandAtStoredIndex(0)
-
     if(command)
         executedCommandsIndex--
     else
         command = getExecutedCommandAtStoredIndex(1)
-
     return command
 }
 

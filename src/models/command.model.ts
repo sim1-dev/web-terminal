@@ -1,8 +1,4 @@
-export interface NameDescriptionPair {
-    name: string,
-    description: string,
-}
-
+import { NameDescriptionPair } from "./name-description-pair.model";
 export interface Command extends NameDescriptionPair {
     visible: boolean,
     result: string,

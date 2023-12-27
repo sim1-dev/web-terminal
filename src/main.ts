@@ -15,17 +15,29 @@ const $commandLine: HTMLElement | null = document.getElementById('command-line')
 const $terminalTextarea: HTMLInputElement | null = <HTMLInputElement>document.getElementById('terminal-area')
 const $typingArea: HTMLElement | null = document.getElementById('typing-area')
 
+const $cursor: HTMLElement = document.getElementById('cursor') as HTMLElement
+
 if($commandLine)
   $commandLine.addEventListener('keyup', fillTyperWithterminalTextareaContent)
 
-if ($terminalTextarea)
+if ($terminalTextarea) {
   $terminalTextarea.addEventListener('keyup', processInputCommand)
+  $terminalTextarea.addEventListener('focus', processFocus)
+  $terminalTextarea.addEventListener('blur', processBlur)
+}
 
-execCommand(getCommand("neofetch"))
+export function processFocus() {
+  $cursor.style.visibility = "visible"
+}
+export function processBlur() {
+  $cursor.style.visibility = "hidden"
+}
+
+execCommand(getCommand("startup"))
 
 // create html element for next line result
 export function createLogLine(text: string) {
-  // ? TODO leggi un carattere alla volta con timeout (il problema sta nel far processare l'html)
+  // ? TODO leggi un carattere alla volta con timeout
   let $p: HTMLElement = document.createElement("p")
   $p.innerHTML = text;
   $logLine?.append($p);

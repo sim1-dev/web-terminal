@@ -1,6 +1,15 @@
 import { Command } from "../models/command.model";
+import { Project } from "../models/project.model";
+import { projects } from "./projects-definitions";
 
 export let commands: Command[] = [
+    {
+        name: "startup",
+        description: "Startup",
+        visible: false,
+        result: "",
+        callback: function() {printNeofetch(); printStartup() }
+    },
     {
         name: "whoami",
         description: "Informazioni su di me",
@@ -21,6 +30,13 @@ export let commands: Command[] = [
         result: "<span>Linguaggi</span>: Typescript, PHP, Javascript, C, C++, Python<br><span>Frameworks</span>: Laravel, Angular, Ionic, Nest.js, Vue, Drupal, Wordpress, SuiteCRM<br><span>Devops</span>: Docker, Git, SVN, Jira<br><span>Librerie UI</span>: PrimeNG, DevExtreme, Material, Syncfusion, Skeleton UI<br><span>Database</span>: MySQL, Postgres, SQL Server, SQLite<br><span>Altre tecnologie</span>: Redis, Cordova/Capacitor, Three.js, Leaflet.js, Socket.io"
     },
     {
+        name: "projects",
+        description: "Progetti a cui ho lavorato nel corso della mia carriera",
+        visible: true,
+        result: "",
+        callback: printProjects
+    },
+    {
         name: "clear",
         description: "Svuota il terminale",
         visible: true,
@@ -39,6 +55,16 @@ export function clearLogLine() {
     $logLine.innerHTML = ""
 }
 
+export function printStartup() {
+    let $logLine: HTMLElement | null = document.getElementById('log-line')
+    let $startupSkeleton: HTMLElement | null = document.getElementById('startup-skeleton');
+
+    if(!$logLine || !$startupSkeleton)
+        return
+
+    $logLine.innerHTML += $startupSkeleton.innerHTML
+}
+
 export function printNeofetch() {
     let $logLine: HTMLElement | null = document.getElementById('log-line')
     let $neofetchSkeleton: HTMLElement | null = document.getElementById('neofetch-skeleton');
@@ -47,4 +73,23 @@ export function printNeofetch() {
         return
 
     $logLine.innerHTML += $neofetchSkeleton.innerHTML
+}
+
+function printProjects() {
+    let $logLine: HTMLElement = document.getElementById('log-line') as HTMLElement
+    $logLine.innerHTML += "<span>Progetti a cui ho lavorato negli ultimi anni</span>"
+    $logLine.innerHTML += "<br>"
+    $logLine.innerHTML += "<br>"
+    projects.map((project: Project) => {
+        $logLine.innerHTML += "<span>"+ project.name +"</span>"
+        $logLine.innerHTML += "<br>"
+        $logLine.innerHTML += "<p>"+ project.description +"</p>"
+        if(project.link) {
+            $logLine.innerHTML += '<a href="'+ project.link +'" target="_blank">Visita il sito</a>'
+            $logLine.innerHTML += "<br>"
+        }
+        $logLine.innerHTML += "- - - - - - - - - - - -"
+        $logLine.innerHTML += "<br>"
+        $logLine.innerHTML += "<br>"
+    })
 }

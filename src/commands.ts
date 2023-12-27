@@ -1,5 +1,6 @@
-import { NameDescriptionPair, Command } from "./models/command.model"
+import { Command } from "./models/command.model"
 import { commands } from "./data/commands-definitions"
+import { NameDescriptionPair } from "./models/name-description-pair.model";
 
 
 // internal functions
