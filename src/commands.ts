@@ -1,6 +1,6 @@
 import { Command } from "./models/command.model"
 import { commands } from "./data/commands-definitions"
-import { NameDescriptionPair } from "./models/name-description-pair.model";
+import { NameDescriptionPair } from "./models/name-description-pair.model"
 
 
 // internal functions
@@ -12,47 +12,33 @@ function createHelpCommand(commands: Command[]): Command {
         result: ""
     }
 
-    let visibleCommands: Command[] = commands.filter(cmd => cmd.visible);
+    let visibleCommands: Command[] = commands.filter(cmd => cmd.visible)
 
     let commandPairs: NameDescriptionPair[] = visibleCommands.map(cmd => {
         return {name: cmd.name, description: cmd.description}
-    });
-
-    const maxNameLength = Math.max(...commandPairs.map(pair => pair.name.length));
+    })
 
     helpCommand.result = commandPairs.map(pair => {
-        function getSpace(name: string, maxNameLength: number): string {
+        return `
+            <div class="flex">
+                <span style="flex: 50%">${pair.name}</span>
+                <p style="flex: 50%">${pair.description}</p>
+            </div>
+        `
+    }).join("")
 
-            const MIN_EXTRA_SPACE = 30;
-
-            let space: number = maxNameLength > MIN_EXTRA_SPACE 
-                ? maxNameLength 
-                : MIN_EXTRA_SPACE
-
-            space -= name.length
-
-            let spaces: string = "";
-            for(let i = 0; i < space; i++) {
-                spaces += "\u00A0";
-            }
-            return spaces;
-        }
-
-        return `<span>${pair.name}</span>${getSpace(pair.name, maxNameLength)}${pair.description}`
-    }).join("<br>")
-
-    return helpCommand;
+    return helpCommand
 }
 
 // exports
-let helpCommand: Command = createHelpCommand(commands);
-commands.push(helpCommand);
+let helpCommand: Command = createHelpCommand(commands)
+commands.push(helpCommand)
 
-export { commands };
+export { commands }
 
 
 export function getCommand(name: string): Command | undefined {
     let command: Command | undefined = commands.find(cmd => cmd.name === name)
-    return command;
+    return command
 }
 

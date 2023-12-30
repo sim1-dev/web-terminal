@@ -14,6 +14,7 @@
   --text-subtle-light: #a9afb6;
 }
 
+/* default overrides */
 body {
   margin: 0;
   padding: 10px 10px;
@@ -23,8 +24,9 @@ body {
   background-color: #010101;
 }
 
-p {
+p, span {
   margin: 0;
+  font-size: 1.1em;
 }
 
 b {
@@ -32,6 +34,16 @@ b {
   text-decoration: none !important;
 }
 
+::selection {
+  color: #211830;
+  background-color: var(--text-primary);
+}
+::-moz-selection {
+  color: #211830;
+  background-color: var(--text-primary);
+}
+
+/* directives */
 span, .neon {
   color: var(--text-accent);
   text-shadow:
@@ -46,14 +58,11 @@ span, .neon {
   color: var(--text-subtle-light);
 }
 
-::selection {
-  color: #211830;
-  background-color: var(--text-primary);
+.flex {
+  display: flex;
 }
-::-moz-selection {
-  color: #211830;
-  background-color: var(--text-primary);
-}
+
+/* custom elements */
 
 #command-line {
   cursor: text;
@@ -112,7 +121,6 @@ span, .neon {
 }
 
 .neofetch {
-  display: flex;
   flex-direction: row;
 }
 
@@ -126,7 +134,6 @@ span, .neon {
 
 .colors-container {
   margin-top: 20px;
-  display: flex;
   flex-direction: column;
 }
 
