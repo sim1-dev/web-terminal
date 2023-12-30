@@ -6,6 +6,10 @@ import { getNextExecutedCommand, getPreviousExecutedCommand, storeExecutedComman
 enum KeyboardEvents {
   ARROW_UP = "ArrowUp",
   ARROW_DOWN = "ArrowDown",
+  ARROW_LEFT = "ArrowLeft",
+  ARROW_RIGHT = "ArrowRight",
+  BACKSPACE = "Backspace",
+  DELETE = "Delete",
   ENTER = "Enter"
 }
 
@@ -18,10 +22,10 @@ const $typingArea: HTMLElement | null = document.getElementById('typing-area')
 const $cursor: HTMLElement = document.getElementById('cursor') as HTMLElement
 
 if($commandLine)
-  $commandLine.addEventListener('keyup', fillTyperWithterminalTextareaContent)
+  $commandLine.addEventListener('keyup', syncTypingAreaWithTextarea)
 
 if ($terminalTextarea) {
-  $terminalTextarea.addEventListener('keyup', processInputCommand)
+  $terminalTextarea.addEventListener('keyup', processKeyboardInput)
   $terminalTextarea.addEventListener('focus', processFocus)
   $terminalTextarea.addEventListener('blur', processBlur)
 }
@@ -39,32 +43,27 @@ execCommand(getCommand("startup"))
 export function createLogLine(text: string) {
   // ? TODO leggi un carattere alla volta con timeout
   let $p: HTMLElement = document.createElement("p")
-  $p.innerHTML = text;
-  $logLine?.append($p);
+  $p.innerHTML = text
+  $logLine?.append($p)
 }
 
-export function processInputCommand(event: KeyboardEvent) {
+export function processKeyboardInput(event: KeyboardEvent) {
   if(!$terminalTextarea)
     return
 
-  // process executed commands store
+  // retrieves executed command from commands store
   if(event.key === KeyboardEvents.ARROW_UP || event.key === KeyboardEvents.ARROW_DOWN) {
-    let autocompletionCommand: Command | undefined
+    setCommandFromStoredCommands(event.key)
+    return
+  }
 
-    if(event.key === KeyboardEvents.ARROW_UP)
-      autocompletionCommand = getPreviousExecutedCommand()
-  
-    if(event.key === KeyboardEvents.ARROW_DOWN)
-      autocompletionCommand = getNextExecutedCommand()
-
-    if(autocompletionCommand)
-      setCommandAreasContent(autocompletionCommand.name)
-
+  if(event.key === KeyboardEvents.ARROW_LEFT || event.key === KeyboardEvents.ARROW_RIGHT || event.key === KeyboardEvents.BACKSPACE || event.key === KeyboardEvents.DELETE) {
+    moveCursor()
     return
   }
 
   // process command execution
-  let value: string | null = $terminalTextarea.value;
+  let value: string | null = $terminalTextarea.value
 
   if(!value || event.key !== KeyboardEvents.ENTER)
     return
@@ -73,37 +72,67 @@ export function processInputCommand(event: KeyboardEvent) {
 
   let result: string = execCommand(command)
 
-
   if(result)
     createLogLine(result)
 
-  clearCommandAreasContent()
+  clearTypingArea()
+
+  moveCursor()
 
   if(!command)
     return
 
   storeExecutedCommand(command)
 }
-
 export function execCommand(command: Command | undefined): string {
 
   if(!command)
-      return "Comando non trovato. Digita '<span class=\"neon\">help</span>' per la lista completa di comandi";
+      return "Comando non trovato. Digita '<span class=\"neon\">help</span>' per la lista completa di comandi"
 
   if(command.callback)
     command.callback()
 
-  return command.result;
+  return command.result
 }
 
+
+// key press process functions
+export function setCommandFromStoredCommands(action_key: KeyboardEvents) {
+  let autocompletionCommand: Command | undefined
+
+    if(action_key === KeyboardEvents.ARROW_UP)
+      autocompletionCommand = getPreviousExecutedCommand()
+  
+    if(action_key === KeyboardEvents.ARROW_DOWN)
+      autocompletionCommand = getNextExecutedCommand()
+
+    if(autocompletionCommand)
+      setTypingAreaContent(autocompletionCommand.name)
+}
+
+export function moveCursor() {
+  const INITIAL_MARGIN_PX: number = -10.5
+  const SHIFT_FACTOR_PX: number = Math.abs(INITIAL_MARGIN_PX)
+  
+  const current_cursor_position: number = $terminalTextarea?.selectionStart as number
+  const max_cursor_position: number = $terminalTextarea?.value.length as number
+
+  let next_shift_position_px: number = ((current_cursor_position - max_cursor_position) * SHIFT_FACTOR_PX) + INITIAL_MARGIN_PX
+
+  $cursor.style.left = next_shift_position_px .toString() + "px"
+
+  return
+}
+
+
 // html functions
-export function fillTyperWithterminalTextareaContent() {
+export function syncTypingAreaWithTextarea() {
   if($terminalTextarea && $typingArea) {
     $typingArea.textContent = $terminalTextarea.value
   }
 }
 
-export function setCommandAreasContent(text: string) {
+export function setTypingAreaContent(text: string) {
   if(!$terminalTextarea || !$typingArea)
     return
 
@@ -114,7 +143,7 @@ export function setCommandAreasContent(text: string) {
   $terminalTextarea.focus()
 }
 
-export function clearCommandAreasContent() {
+export function clearTypingArea() {
   if($terminalTextarea)
     $terminalTextarea.value = ""
 

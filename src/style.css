@@ -17,6 +17,7 @@
 body {
   margin: 0;
   padding: 10px 10px;
+  font-size: 1.1em;
   font-family: Hack NF;
   color: var(--text-subtle-light);
   background-color: #010101;
@@ -66,7 +67,7 @@ span, .neon {
 }
 
 .cursor {
-  font-size: 12px;
+  font-size: .75em;
   color: #73ABAD;
   background-color: #73ABAD;
   position: relative;
@@ -141,5 +142,11 @@ span, .neon {
   }
   .neofetch-logo, .neofetch-info {
     margin: 0 !important
+  }
+  #command-line {
+    font-size:1.9em;
+  }
+  .cursor {
+    font-size: .75em;
   }
 }
