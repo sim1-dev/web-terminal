@@ -5,7 +5,7 @@ import { NameDescriptionPair } from "./models/name-description-pair.model"
 
 // internal functions
 function createHelpCommand(commands: Command[]): Command {
-    let helpCommand: Command = {
+    let help: Command = {
         name: "help",
         description: "Lista dei comandi disponibili",
         visible: true,
@@ -18,21 +18,21 @@ function createHelpCommand(commands: Command[]): Command {
         return {name: cmd.name, description: cmd.description}
     })
 
-    helpCommand.result = commandPairs.map(pair => {
+    help.result = commandPairs.map(pair => {
         return `
             <div class="flex">
                 <span style="flex: 50%">${pair.name}</span>
                 <p style="flex: 50%">${pair.description}</p>
             </div>
         `
-    }).join("")
+    }).join("<br>")
 
-    return helpCommand
+    return help
 }
 
 // exports
-let helpCommand: Command = createHelpCommand(commands)
-commands.push(helpCommand)
+let help: Command = createHelpCommand(commands)
+commands.push(help)
 
 export { commands }
 

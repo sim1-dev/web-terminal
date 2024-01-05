@@ -14,7 +14,7 @@ export let commands: Command[] = [
         name: "whoami",
         description: "Informazioni su di me",
         visible: true,
-        result: "Mi chiamo Simone, ho 25 anni e sono un Web Developer. Quello dello sviluppatore è un viaggio dinamico e appassionante che richiede impegno costante e flessibilità. In quanto disciplina non esatta, il professionista deve affrontare con responsabilità e creatività le sfide impreviste che emergono durante il processo di creazione. Ho investito gli ultimi anni della mia vita nell'approfondimento continuo della rapida evoluzione del settore, studiando attentamente le nuove tecnologie e le tendenze emergenti. Questo impegno mi ha permesso di acquisire una conoscenza approfondita, consentendomi di lavorare su progetti innovativi e all'avanguardia. La mia dedizione allo studio quotidiano si traduce in soluzioni web personalizzate e adatte alle esigenze specifiche dei clienti, contribuendo a creare un impatto significativo nel panorama digitale."
+        result: "<p>Mi chiamo Simone, ho 25 anni e sono un Web Developer. Quello dello sviluppatore è un viaggio dinamico e appassionante che richiede impegno costante e flessibilità. In quanto disciplina non esatta, il professionista deve affrontare con responsabilità e creatività le sfide impreviste che emergono durante il processo di creazione. Ho investito gli ultimi anni della mia vita nell'approfondimento continuo della rapida evoluzione del settore, studiando attentamente le nuove tecnologie e le tendenze emergenti. Questo impegno mi ha permesso di acquisire una conoscenza approfondita, consentendomi di lavorare su progetti innovativi e all'avanguardia. La mia dedizione allo studio quotidiano si traduce in soluzioni web personalizzate e adatte alle esigenze specifiche dei clienti, contribuendo a creare un impatto significativo nel panorama digitale.</p>"
     },
     {
         name: "neofetch",
@@ -27,7 +27,7 @@ export let commands: Command[] = [
         name: "technologies",
         description: "Info sulle tecnologie da me utilizzate negli ultimi anni",
         visible: true,
-        result: "<span>Linguaggi</span>: Typescript, PHP, Javascript, C, C++, Python<br><span>Frameworks</span>: Laravel, Angular, Ionic, Nest.js, Vue, Drupal, Wordpress, SuiteCRM<br><span>Devops</span>: Docker, Git, SVN, Jira<br><span>Librerie UI</span>: PrimeNG, DevExtreme, Material, Syncfusion, Skeleton UI<br><span>Database</span>: MySQL, Postgres, SQL Server, SQLite<br><span>Altre tecnologie</span>: Redis, Cordova/Capacitor, Three.js, Leaflet.js, Socket.io"
+        result: "<p><span>Linguaggi</span>: Typescript, PHP, Javascript, C, C++, Python<br><span>Frameworks</span>: Laravel, Angular, Ionic, Nest.js, Vue, Drupal, Wordpress, SuiteCRM<br><span>Devops</span>: Docker, Git, SVN, Jira<br><span>Librerie UI</span>: PrimeNG, DevExtreme, Material, Syncfusion, Skeleton UI<br><span>Database</span>: MySQL, Postgres, SQL Server, SQLite<br><span>Altre tecnologie</span>: Redis, Cordova/Capacitor, Three.js, Leaflet.js, Socket.io</p>"
     },
     {
         name: "projects",
@@ -95,10 +95,10 @@ function printProjects() {
         $logLine.innerHTML += "<span>"+ project.name +"</span>"
         $logLine.innerHTML += "<br>"
         $logLine.innerHTML += "<p>"+ project.description +"</p>"
-        if(project.link) {
-            $logLine.innerHTML += '<a href="'+ project.link +'" target="_blank">Visita il sito</a>'
-            $logLine.innerHTML += "<br>"
-        }
+        // if(project.link) {
+        //     $logLine.innerHTML += '<a href="'+ project.link +'" target="_blank">Visita il sito</a>'
+        //     $logLine.innerHTML += "<br>"
+        // }
         $logLine.innerHTML += "- - - - - - - - - - - -"
         $logLine.innerHTML += "<br>"
         $logLine.innerHTML += "<br>"

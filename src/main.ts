@@ -42,9 +42,9 @@ execCommand(getCommand("startup"))
 // create html element for next line result
 export function createLogLine(text: string) {
   // ? TODO leggi un carattere alla volta con timeout
-  let $p: HTMLElement = document.createElement("p")
-  $p.innerHTML = text
-  $logLine?.append($p)
+  let $div: HTMLElement = document.createElement("div")
+  $div.innerHTML = text
+  $logLine?.append($div)
 }
 
 export function processKeyboardInput(event: KeyboardEvent) {
