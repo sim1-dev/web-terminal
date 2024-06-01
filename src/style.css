@@ -10,6 +10,7 @@
 
 :root {
   --text-primary: #44cb44;
+  --text-secondary: #c01c28;
   --text-accent: #1285e4;
   --text-subtle-light: #a9afb6;
 }
@@ -54,9 +55,35 @@ span, .neon {
   color: var(--text-primary);
 }
 
+.text-secondary {
+  color: var(--text-secondary);
+}
+
 .text-subtle-light {
   color: var(--text-subtle-light);
 }
+
+
+.p-1 {
+  padding: 5px;
+}
+
+.p-2 {
+  padding: 10px;
+}
+
+.p-3 {
+  padding: 20px;
+}
+
+.p-4 {
+  padding: 40px;
+}
+
+.p-5 {
+  padding: 80px;
+}
+
 
 .flex {
   display: flex;

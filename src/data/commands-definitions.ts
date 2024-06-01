@@ -1,5 +1,9 @@
 import { Command } from "../models/command.model";
+import { Company } from "../models/dtos/company.model";
+import { Experience } from "../models/dtos/experience.model";
+import { RESUME } from "../models/dtos/resume.model";
 import { Project } from "../models/project.model";
+import { formatPeriod } from "../utils/date-format";
 import { projects } from "./projects-definitions";
 
 export let commands: Command[] = [
@@ -17,6 +21,13 @@ export let commands: Command[] = [
         result: "<p>Mi chiamo Simone, ho 25 anni e sono un Web Developer. Quello dello sviluppatore è un viaggio dinamico e appassionante che richiede impegno costante e flessibilità. In quanto disciplina non esatta, il professionista deve affrontare con responsabilità e creatività le sfide impreviste che emergono durante il processo di creazione. Ho investito gli ultimi anni della mia vita nell'approfondimento continuo della rapida evoluzione del settore, studiando attentamente le nuove tecnologie e le tendenze emergenti. Questo impegno mi ha permesso di acquisire una conoscenza approfondita, consentendomi di lavorare su progetti innovativi e all'avanguardia. La mia dedizione allo studio quotidiano si traduce in soluzioni web personalizzate e adatte alle esigenze specifiche dei clienti, contribuendo a creare un impatto significativo nel panorama digitale.</p>"
     },
     {
+        name: "cv",
+        description: "Curriculum Vitae",
+        visible: true,
+        result: "",
+        callback: printResume
+    },
+    {
         name: "neofetch",
         description: "Info generali sul sistema",
         visible: true,
@@ -27,7 +38,7 @@ export let commands: Command[] = [
         name: "technologies",
         description: "Info sulle tecnologie da me utilizzate negli ultimi anni",
         visible: true,
-        result: "<p><span>Linguaggi</span>: Typescript, PHP, Javascript, C, C++, Python<br><span>Frameworks</span>: Laravel, Angular, Ionic, Nest.js, Vue, Drupal, Wordpress, SuiteCRM<br><span>Devops</span>: Docker, Git, SVN, Jira<br><span>Librerie UI</span>: PrimeNG, DevExtreme, Material, Syncfusion, Skeleton UI<br><span>Database</span>: MySQL, Postgres, SQL Server, SQLite<br><span>Altre tecnologie</span>: Redis, Cordova/Capacitor, Three.js, Leaflet.js, Socket.io</p>"
+        result: "<p><span>Linguaggi</span>: Typescript, PHP, C#, Javascript, C, C++, Python<br><span>Frameworks</span>: Laravel, Angular, Ionic, Nest.js, Vue, Drupal, Wordpress, SuiteCRM<br><span>Devops</span>: Docker, Git, SVN, Jira<br><span>Librerie UI</span>: PrimeNG, DevExtreme, Material, Syncfusion, Skeleton UI<br><span>Database</span>: MySQL, Postgres, SQL Server, SQLite<br><span>Altre tecnologie</span>: Redis, Cordova/Capacitor, Three.js, Leaflet.js, Socket.io</p>"
     },
     {
         name: "projects",
@@ -88,7 +99,7 @@ export function printNeofetch() {
 }
 function printProjects() {
     let $logLine: HTMLElement = document.getElementById('log-line') as HTMLElement
-    $logLine.innerHTML += "<span>Progetti a cui ho lavorato negli ultimi anni</span>"
+    $logLine.innerHTML += "<br><span>Progetti a cui ho lavorato negli ultimi anni</span>"
     $logLine.innerHTML += "<br>"
     $logLine.innerHTML += "<br>"
     projects.map((project: Project) => {
@@ -100,6 +111,47 @@ function printProjects() {
         //     $logLine.innerHTML += "<br>"
         // }
         $logLine.innerHTML += "- - - - - - - - - - - -"
+        $logLine.innerHTML += "<br>"
+        $logLine.innerHTML += "<br>"
+    })
+}
+function printResume() {
+    let $logLine: HTMLElement = document.getElementById('log-line') as HTMLElement
+    $logLine.innerHTML += "<br><span>Curriculum Vitae</span><br><br>"
+    RESUME.companies.map((company: Company) => {
+        $logLine.innerHTML += "<span>"+ company.name + " " + formatPeriod(company.start, company.end) +"</span>"
+        $logLine.innerHTML += "<br>"
+        $logLine.innerHTML += "<p>"+"</p>"
+        
+        if(company.experiences && company.experiences.length > 0) {
+            $logLine.innerHTML += "<br>"
+
+            company.experiences.map((experience: Experience) => {
+                $logLine.innerHTML += 
+                    '<div class="p-1">'
+                    + '<p class="text-secondary">'+ experience.customer + (experience.finalCustomer ? " per " + experience.finalCustomer : "") +"</p>"
+                    + '</div>'
+
+                experience.projects.map((project: Project) => {
+
+                    $logLine.innerHTML += 
+                        '<div class="p-2">'
+                            + '<p class="neon">'+ project.name + "</p>"
+                            + '<p class="text-subtle-light">' + formatPeriod(project.start, project.end) + "</p>"
+                            + "<br>"
+                            + "<p>"+ project.description +"</p>"
+                        + '</div>'
+
+                    $logLine.innerHTML += "<br>"
+                })
+
+                $logLine.innerHTML += "<br>"
+                $logLine.innerHTML += "<br>"
+            })
+        }
+
+        $logLine.innerHTML += "- - - - - - - - - - - -"
+        $logLine.innerHTML += "<br>"
         $logLine.innerHTML += "<br>"
         $logLine.innerHTML += "<br>"
     })

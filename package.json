@@ -2,7 +2,7 @@
   "name": "web-terminal",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://sim1-dev.github.io/web-terminal/",
+  "homepage": "https://simonetenisci.net",
   "type": "module",
   "scripts": {
     "dev": "vite",
