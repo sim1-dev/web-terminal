@@ -1,49 +1,38 @@
 @font-face {
   font-family: Hack NF;
-  src: url(public/fonts/HackNF.woff);
+  src: url(/public/fonts/HackNF.woff);
 }
-
 @font-face {
   font-family: Hack NF;
-  src: url(public/fonts/HackNF-Bold.woff);
+  src: url(/public/fonts/HackNF-Bold.woff);
   font-weight: bold;
 }
 
 :root {
   --text-primary: #44cb44;
+  --text-secondary: #c01c28;
   --text-accent: #1285e4;
   --text-subtle-light: #a9afb6;
 }
 
+/* default overrides */
 body {
   margin: 0;
-  padding: 10px 10px; width: 100%; min-width: 550px;
+  padding: 10px 10px;
+  font-size: 1.1em;
   font-family: Hack NF;
   color: var(--text-subtle-light);
   background-color: #010101;
 }
 
-p {
+p, span {
   margin: 0;
+  font-size: 1.1em !important;
 }
 
 b {
   font-weight: bold !important;
   text-decoration: none !important;
-}
-
-.neon {
-  color: var(--text-accent);
-  text-shadow:
-  0 0 15px rgba(0, 255, 255, 0.6)
-}
-
-.text-primary {
-  color: var(--text-primary);
-}
-
-.text-subtle-light {
-  color: var(--text-subtle-light);
 }
 
 ::selection {
@@ -54,6 +43,53 @@ b {
   color: #211830;
   background-color: var(--text-primary);
 }
+
+/* directives */
+span, .neon {
+  color: var(--text-accent);
+  text-shadow:
+  0 0 15px rgba(0, 255, 255, 0.6)
+}
+
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-subtle-light {
+  color: var(--text-subtle-light);
+}
+
+
+.p-1 {
+  padding: 5px;
+}
+
+.p-2 {
+  padding: 10px;
+}
+
+.p-3 {
+  padding: 20px;
+}
+
+.p-4 {
+  padding: 40px;
+}
+
+.p-5 {
+  padding: 80px;
+}
+
+
+.flex {
+  display: flex;
+}
+
+/* custom elements */
 
 #command-line {
   cursor: text;
@@ -67,7 +103,7 @@ b {
 }
 
 .cursor {
-  font-size: 12px;
+  font-size: .75em;
   color: #73ABAD;
   background-color: #73ABAD;
   position: relative;
@@ -112,7 +148,6 @@ b {
 }
 
 .neofetch {
-  display: flex;
   flex-direction: row;
 }
 
@@ -120,12 +155,13 @@ b {
   margin-right: 30px;
 }
 
-.neofetch-info{
+.neofetch-info {
   margin-left: 30px;
 }
 
-.colors {
-  margin-top:20px;
+.colors-container {
+  margin-top: 20px;
+  flex-direction: column;
 }
 
 .colors > div {
@@ -134,8 +170,17 @@ b {
   height:15px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 960px) {
   .neofetch {
     flex-direction: column !important;
+  }
+  .neofetch-logo, .neofetch-info {
+    margin: 0 !important
+  }
+  #command-line {
+    font-size:1.9em;
+  }
+  .cursor {
+    font-size: .75em;
   }
 }
